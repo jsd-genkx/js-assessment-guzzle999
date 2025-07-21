@@ -131,10 +131,11 @@
 
 ### Thinking Process
 
-1. // step 1
-2. // step 2
-3. // ...
-4. // step n
+1. // step 1 Drafting thinking process in draw.io > https://drive.google.com/file/d/1kSK87dCBoOoQ7Y6fHm6cmoUGkOqoZ04m/view?usp=sharing
+2. // step 2 create map
+3. // step 3 create function 'moveUp', 'moveDown', 'moveLeft', 'moveRight'
+4. // step 4 create condition (if/else)
+5. // step 5 check move, check rules
 
 _Notes:_<br>
 _- You can attach flowcharts, diagrams, and images as needed._<br>

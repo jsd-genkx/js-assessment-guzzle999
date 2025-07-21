@@ -14,13 +14,39 @@ const pathCharacter = "*";
 class Field {
 	constructor(field = [[]]) {
 		this.field = field;
-
-		// Replace with your own code //
-		// Set the home position at (0, 0) before the game starts
 		this.positionRow = 0;
 		this.positionCol = 0;
-		this.field[this.positionRow][this.positionCol] = pathCharacter;
+		this.gameOver = false;
 	}
+
+	static createField(holes,row,col) {
+
+	const field = [];
+	const len = row*col;
+	const dimension =new Array(len).fill("░");
+	console.log(dimension)
+
+	//holes
+	for (let i=0; i < holes; i++); {
+		const holePosition = Math.floor(Math.random()*len);
+		dimension[holePosition] = "0"
+	}
+
+	//hat
+	const hatPosition = Math.floor(Math.random()*len);
+	dimension[hatPosition] = "^"
+
+	//actor
+	for (let i=0, i < row; i++) {
+		const actorPosition =  []
+		for (let j=0; j<col; j++); {
+			actorPosition.push(dimension.pop());
+		}
+		field.push(fieldPosition);
+	}
+	return field;
+	}
+
 
 	// Print field //
 	print() {
