@@ -44,7 +44,7 @@ class Field {
 		}
 		field.push(fieldPosition);
 	}
-	return field;
+	return field
 	}
 
 
