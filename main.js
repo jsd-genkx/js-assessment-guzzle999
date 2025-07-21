@@ -14,56 +14,88 @@ const pathCharacter = "*";
 class Field {
 	constructor(field = [[]]) {
 		this.field = field;
-		this.positionRow = 0;
-		this.positionCol = 0;
+		this.actorPosition = { x: 0, y: 0 };
 		this.gameOver = false;
 	}
 
-	static createField(holes,row,col) {
 
-	const field = [];
-	const len = row*col;
-	const dimension =new Array(len).fill("░");
-	console.log(dimension)
+	print() {
+		console.log(this.field.map(row => row.join("░")).join("\n"));
+	    }
+
+	static createField(row,col,holeCount=2) {
+		const field = Array.from({length: row}, ()=>Array.from({length: col}, ()=>"░"));
 
 	//holes
-	for (let i=0; i < holes; i++); {
-		const holePosition = Math.floor(Math.random()*len);
-		dimension[holePosition] = "0"
+	let i = 0;
+	while (i < holeCount) {
+		const holesposX = Math.floor(Math.random()*col);
+		const holesposY = Math.floor(Math.random()*row);
+	 	if (field[holesposY][holesposX] ==="░" && !(holesposX=== 0 && holesposY === 0)) {
+		field[holesposY][holesposX] = "O";
+		i++;
+	 }
 	}
 
 	//hat
-	const hatPosition = Math.floor(Math.random()*len);
-	dimension[hatPosition] = "^"
+	const hatposX = Math.floor(Math.random()*col);
+	const hatposY = Math.floor(Math.random()*row);
+	field[hatposY][hatposX] = "^"
 
 	//actor
-	for (let i=0, i < row; i++) {
-		const actorPosition =  []
-		for (let j=0; j<col; j++); {
-			actorPosition.push(dimension.pop());
+	field[0][0] = "*"
+	return field;
+	}
+
+	//Move Fucntion
+
+	move(direction) {
+	let {x,y} = this.actorPosition;
+		switch (direction) {
+			case'8' : x -= 1;
+			break;
+			case'5' : x += 1;
+			break;
+			case'4' : y -= 1;
+			break;
+			case'6' : y += 1;
+			default:
+				console.log("Please input number to move, use '4' to moveLeft, '6' to moveRight, '8' to moveUp, and '5' to moveDown");
+				return;
 		}
-		field.push(fieldPosition);
+
+		if ( y < 0 || y>= this.field.length || x < 0 || x >= this.field[0].length) {
+			console.log('Game Over');
+			this.gameOver = true;
+			return;
+		}
+
+		const way = this.field[y][x];
+
+		if (way === "0") {
+			console.log("You fell in to a hole. Game Over!");
+			this.gameOver = true;
+		} else if (way === "^") {
+			console.log("Yeah! You found your hat! You win!");
+			this.gameOver = true;
+		} else {
+			this.actorPosition = {x, y} ;
+			this.field [x][y] = "*";
+		}
 	}
-	return field
-	}
 
-
-	// Print field //
-	print() {
-		clear();
-
-		// Replace with your own code //
-		console.log(this.field); // Please REMOVE this line before you start your code!
-	}
-
-	// Your Code //
 }
 
-// Game Mode ON
-// Remark: Code example below should be deleted and use your own code.
-const newGame = new Field([
-	["░", "░", "O"],
-	["░", "O", "░"],
-	["░", "^", "░"],
-]);
-newGame.print();
+function startGame() {
+	const fieldData = Field.createField(3,3);
+	const newField = new Field(fieldData);
+
+	while (!newField.gameOver) {
+		console.clear();
+		newField.print();
+		const direction = prompt("Which way?");
+		newField.move(direction)
+		}
+	}
+
+startGame();

@@ -132,6 +132,7 @@
 ### Thinking Process
 
 1. // step 1 Drafting thinking process in draw.io > https://drive.google.com/file/d/1kSK87dCBoOoQ7Y6fHm6cmoUGkOqoZ04m/view?usp=sharing
+![alt text](image.png)
 2. // step 2 create map
 3. // step 3 create function 'moveUp', 'moveDown', 'moveLeft', 'moveRight'
 4. // step 4 create condition (if/else)
